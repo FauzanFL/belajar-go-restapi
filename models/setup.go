@@ -35,7 +35,8 @@ func (db *Database) DbInit() {
 func (config *Config) ConnectDB() {
 	var err error
 	db := Database{}
-	dsn := fmt.Sprintf("%s:%s@tcp(%s%s)/%s", db.User, db.Password, db.Host, db.Port, db.Name)
+	db.DbInit()
+	dsn := fmt.Sprintf("%s:%s@tcp(%s%s)/%s", db.User, db.Password, db.Host, db.Port, db.Name) + "?charset=utf8mb4&parseTime=True&loc=Local"
 	config.DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
